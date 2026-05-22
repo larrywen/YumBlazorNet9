@@ -25,7 +25,7 @@ namespace YumBlazor.Repository
             if(obj != null)
             {
                 _db.Category.Remove(obj);   // Remove NO Async
-                return (await _db.SaveChangesAsync()) > 0; // add ()
+                return (await _db.SaveChangesAsync()) > 0; // add (), saveChange return how many records are affected, if > 0 means delete successfully
             }
             return false;
         }

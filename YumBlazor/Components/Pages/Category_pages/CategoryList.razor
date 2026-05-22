@@ -16,7 +16,7 @@
 }
 else
 {
-    <div class="card shadow border-0 mt-4">
+    <div class="card shadow border-0 m-4">
         <div class="card-header bg-black bg-gradient ml-0 py-3">
             <div class="row">
                 <div class="col-12 text-center">
@@ -24,40 +24,40 @@ else
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card-body p-4">
-        <div class="row pb-3">
-            <div class="col-12 text-end">
-                <a href="category/create"class="btn btn-lg btn-secondary" style="width:250px">
-                    <i class="bi bi-plus-square"></i> Add New Category
-                </a>
-            </div>
-            @if(Categories.Any())
-            {
-                <table class="table table-bordered table-striped">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Name</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(var category in Categories)
-                        {
+        <div class="card-body p-4">
+            <div class="row pb-3">
+                <div class="col-12 text-end">
+                    <a href="category/create"class="btn btn-lg btn-secondary" style="width:250px">
+                        <i class="bi bi-plus-square"></i> Add New Category
+                    </a>
+                </div>
+                @if(Categories.Any())
+                {
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
                             <tr>
-                                <td>@category.Name</td>
-                                <td>
-                                    <a href="@($"category/update/{category.Id}")" class="btn btn-primary">
-                                        <i class="bi bi-pencil-square"></i> Edit</a>
-                                    <button class="btn btn-danger" @onclick="() => HandleDelete(category.Id)">
-                                        <i class="bi bi-trash3"></i> Delete
-                                    </button>
-                                </td>
+                                <th>Name</th>
+                                <th></th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            }
+                        </thead>
+                        <tbody>
+                            @foreach(var category in Categories)
+                            {
+                                <tr>
+                                    <td>@category.Name</td>
+                                    <td>
+                                        <a href="@($"category/update/{category.Id}")" class="btn btn-primary">
+                                            <i class="bi bi-pencil-square"></i> Edit</a>
+                                        <button class="btn btn-danger" @onclick="() => HandleDelete(category.Id)">
+                                            <i class="bi bi-trash3"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
         </div>
     </div>
 }
@@ -77,7 +77,11 @@ else
         IsProcessing = false;
         */
     }
+    //Async is great to load data, but Blazor server Pre-rendering will not wait for the async method to complete before rendering the component, 
+    // which can lead to issues with data not being available when the component is rendered. To address this, we can use the OnAfterRenderAsync 
+    // lifecycle method to load data after the initial render, ensuring that the component is rendered with the necessary data.
 
+    //when using local interactivity per component at that point we can use OnInitializedAsync, but when using global interactivity and want to load data on the first render, then we can use OnAfterRenderAsync
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if(firstRender)
