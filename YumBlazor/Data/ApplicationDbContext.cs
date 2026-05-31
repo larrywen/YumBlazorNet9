@@ -7,6 +7,10 @@ namespace YumBlazor.Data
     {
         public DbSet<Category> Category { get; set; }    // add Category to table
         public DbSet<Product> Product { get; set; }    // add Product to table
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }    // add ShoppingCart to table
+        public DbSet<OrderHeader> OrderHeader { get; set; }
+        public DbSet<OrderDetail> OrderDetail { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);  // do not remove, it is required in order to seed category table
